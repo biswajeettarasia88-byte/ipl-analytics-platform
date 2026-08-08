@@ -1,0 +1,12 @@
+project:
+  name: ipl-analytics-platform
+  version: 1.0.0
+
+data:
+  raw_path: data/raw/
+  staging_path: data/staging/
+  processed_path: data/processed/
+  source_url: https://cricsheet.org/downloads/ipl_json.zip
+
+database:
+  schema: public

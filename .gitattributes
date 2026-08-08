@@ -1,0 +1,18 @@
+# Enforce LF line endings for consistency across OS
+* text=auto eol=lf
+
+# Explicitly declare file types
+*.py text diff=python
+*.sql text diff=sql
+*.md text diff=markdown
+*.yaml text
+*.yml text
+*.json text
+*.csv text
+
+# Exclude large binaries from diffs
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pkl binary
+*.joblib binary

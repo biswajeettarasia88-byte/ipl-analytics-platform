@@ -1,0 +1,49 @@
+# Environments
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs
+.vscode/
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Data (Raw, Staging, Processed)
+data/raw/*
+data/staging/*
+data/processed/*
+data/marts/*
+!data/README.md
+
+# Models
+models/*.pkl
+models/*.joblib
+models/*.bin
+!models/features.json
+
+# Credentials
+credentials.json
+*.pem
+*.key
