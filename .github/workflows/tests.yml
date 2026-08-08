@@ -38,6 +38,11 @@ jobs:
         test -d "models" || echo "models dir missing"
         test -f "Dockerfile" || echo "Dockerfile missing"
         
+    - name: Generate Data Artifacts
+      run: |
+        python src/ingestion/ingest.py
+        python src/cleaning/transformer.py
+        
     - name: Run Pytest Test Suite
       env:
         PYTHONPATH: ${{ github.workspace }}
