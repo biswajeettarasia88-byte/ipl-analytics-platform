@@ -97,14 +97,22 @@ ORDER BY matches_played DESC
 LIMIT 5;
 
 -- 9. Chasing success
+WITH chasing_teams AS (
+    SELECT DISTINCT match_id, batting_team AS chasing_team
+    FROM fact_deliveries
+    WHERE innings = 2
+),
+valid_matches AS (
+    SELECT match_id, winner
+    FROM fact_matches
+    WHERE result_type != 'no result' OR result_type IS NULL
+)
 SELECT 
-    toss_decision,
-    COUNT(*) as matches,
-    SUM(CASE WHEN toss_winner = winner THEN 1 ELSE 0 END) as wins,
-    ROUND(CAST(SUM(CASE WHEN toss_winner = winner THEN 1 ELSE 0 END) AS FLOAT) / COUNT(*) * 100, 2) as win_pct
-FROM fact_matches
-WHERE toss_decision IN ('bat', 'field') AND winner != 'No Result'
-GROUP BY toss_decision;
+    COUNT(v.match_id) AS total_chasing_matches,
+    SUM(CASE WHEN c.chasing_team = v.winner THEN 1 ELSE 0 END) AS total_chasing_wins,
+    ROUND(CAST(SUM(CASE WHEN c.chasing_team = v.winner THEN 1 ELSE 0 END) AS FLOAT) / COUNT(v.match_id) * 100, 2) AS chasing_win_pct
+FROM valid_matches v
+JOIN chasing_teams c ON v.match_id = c.match_id;
 
 -- 10. Powerplay performance (Overs 1-6)
 SELECT batting_team,
@@ -251,3 +259,4 @@ SELECT batter,
 FROM BatterStats
 ORDER BY strike_rate DESC
 LIMIT 5;
+
