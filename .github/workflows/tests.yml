@@ -43,6 +43,11 @@ jobs:
         python src/ingestion/ingest.py
         python src/cleaning/transformer.py
         
+    - name: Generate ML Models
+      run: |
+        python src/analytics/feature_engineering.py
+        python src/analytics/train_models.py
+        
     - name: Run Pytest Test Suite
       env:
         PYTHONPATH: ${{ github.workspace }}
@@ -50,4 +55,5 @@ jobs:
         # DB_USER: ${{ secrets.DB_USER }}
       run: |
         pytest tests/
+
 
